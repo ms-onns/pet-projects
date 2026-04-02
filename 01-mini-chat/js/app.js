@@ -1,6 +1,10 @@
 const chatForm = document.querySelector(".chat-form");
 const messagesCont = document.querySelector(".messages");
 const messageInput = document.getElementById("message-input");
+const clearBtn = document.getElementById("clear-btn");
+const modal = document.getElementById("confirm-modal");
+const btnYes = document.getElementById("btn-yes");
+const btnNo = document.getElementById("btn-no");
 
 let messages = [];
 
@@ -54,4 +58,20 @@ chatForm.addEventListener("submit", (e) => {
 
   messageInput.value = "";
 });
+
+clearBtn.addEventListener("click", () => {
+  modal.classList.remove("hidden");
+});
+
+btnNo.addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+btnYes.addEventListener("click", () => {
+  messages = [];
+  localStorage.removeItem("chatHistory");
+  renderMessage();
+  modal.classList.add("hidden");
+});
+
 loadMessages();
