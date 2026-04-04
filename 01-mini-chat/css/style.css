@@ -1,4 +1,3 @@
-@charset "UTF-8";
 body {
   font-family: system-ui, -apple-system, sans-serif;
   background: #0f172a;
@@ -31,7 +30,6 @@ body {
   font-weight: bold;
 }
 
-/* СТИЛЬ КНОПКИ ОЧИЩЕННЯ (Outline) */
 .clear-btn {
   background: transparent;
   color: #ef4444;

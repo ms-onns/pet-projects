@@ -24,11 +24,19 @@ function renderMessage() {
   messagesCont.scrollTop = messagesCont.scrollHeight;
 }
 
-function botReply() {
-  setTimeout(() => {
-    addMessage("Я отримав твоє повідомлення!", "bot");
+async function botReply() {
+  try {
+    const response = await fetch("https://api.adviceslip.com/advice");
+    const data = await response.json();
+
+    setTimeout(() => {
+      addMessage(data.slip.advice, "bot");
+      renderMessage();
+    }, 1500);
+  } catch (error) {
+    addMessage("Oops, something went wrong! Please try again later.", "bot");
     renderMessage();
-  }, 1000);
+  }
 }
 
 function saveMessages() {
