@@ -16,13 +16,13 @@ Each project is designed to practice specific concepts and improve real-world pr
 **Async & Data:**
 
 - Fetch API
-- Async / Await
+- Async / Await & Try / Catch
 - REST API Integration
 - Web Storage API (`localStorage`)
 
 **Styling:**
 
-- CSS / SCSS
+- CSS / SCSS (Custom Properties / Variables)
 - Flexbox / Grid
 - BEM Methodology
 
@@ -40,22 +40,23 @@ pet-projects/
 
 ### 01. Mini Chat (MVP)
 
-A state-based message system that simulates real-time messaging with an automated bot and persistent memory.
+A state-based message system that integrates a live REST API for automated bot responses, featuring persistent memory and custom UI theming.
 
 #### 🔧 Key Features:
 
 - **State-driven UI:** Interface rendering based on a data array (State).
-- **Asynchronous Bot Reply:** Simulated bot responses using `setTimeout`.
-- **Persistent Storage:** Chat history saved and loaded using `localStorage`.
+- **Network Requests:** Real bot responses fetched from the Advice Slip API using `async/await`.
+- **Persistent Storage:** Chat history and UI preferences saved and loaded using `localStorage`.
+- **UI Engineering:** Dark/Light theme toggle switch linked to CSS variables.
+- **Interactive Components:** Custom dropdown (burger) menu and confirmation modals.
 - **Auto-scroll:** Automatic camera focus on the latest messages.
-- Form handling (`submit`, `preventDefault`) and basic validation.
 
 #### 🎯 Learning Focus:
 
-- Asynchronous JavaScript (`setTimeout`).
+- Handling asynchronous JavaScript (`fetch`, `async/await`, error handling).
 - Web Storage API (`localStorage`, JSON serialization).
 - Separation of concerns (Logic vs. UI rendering).
-- DOM element properties (`scrollTop`, `scrollHeight`).
+- Advanced DOM manipulation (toggling classes, dynamic CSS variables).
 
 ---
 
@@ -89,9 +90,9 @@ Each project builds on previous knowledge and introduces new concepts step-by-st
 
 ## 🧩 Future Plans
 
-- Add API-based chat (real backend simulation)
-- Introduce authentication logic
-- Migrate project to React
+- **AI Helper Chat:** Upgrade the current API to a real AI (Google Gemini API) using `POST` requests and authentication headers.
+- Introduce user authentication logic.
+- Migrate the project architecture to React.
 
 ---
 
