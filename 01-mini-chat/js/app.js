@@ -5,6 +5,9 @@ const clearBtn = document.getElementById("clear-btn");
 const modal = document.getElementById("confirm-modal");
 const btnYes = document.getElementById("btn-yes");
 const btnNo = document.getElementById("btn-no");
+const burgerBtn = document.getElementById("burger-btn");
+const dropdownMenu = document.getElementById("dropdown-menu");
+const themeSwitch = document.getElementById("theme-switch");
 
 let messages = [];
 
@@ -15,11 +18,8 @@ function addMessage(text, type) {
 
 function renderMessage() {
   let html = messages
-    .map((msg) => {
-      return `<div class="message ${msg.type}">${msg.text}</div>`;
-    })
+    .map((msg) => `<div class="message ${msg.type}">${msg.text}</div>`)
     .join("");
-
   messagesCont.innerHTML = html;
   messagesCont.scrollTop = messagesCont.scrollHeight;
 }
@@ -28,13 +28,12 @@ async function botReply() {
   try {
     const response = await fetch("https://api.adviceslip.com/advice");
     const data = await response.json();
-
     setTimeout(() => {
       addMessage(data.slip.advice, "bot");
       renderMessage();
     }, 1500);
   } catch (error) {
-    addMessage("Oops, something went wrong! Please try again later.", "bot");
+    addMessage("Oops, something went wrong!", "bot");
     renderMessage();
   }
 }
@@ -49,16 +48,18 @@ function loadMessages() {
     messages = JSON.parse(saved);
     renderMessage();
   }
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-theme");
+    themeSwitch.checked = true;
+  }
 }
 
 chatForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   let text = messageInput.value.trim();
-
-  if (text === "") {
-    return;
-  }
+  if (text === "") return;
 
   addMessage(text, "me");
   renderMessage();
@@ -67,13 +68,27 @@ chatForm.addEventListener("submit", (e) => {
   messageInput.value = "";
 });
 
-clearBtn.addEventListener("click", () => {
-  modal.classList.remove("hidden");
+burgerBtn.addEventListener("click", () => {
+  dropdownMenu.classList.toggle("hidden");
 });
 
-btnNo.addEventListener("click", () => {
-  modal.classList.add("hidden");
+themeSwitch.addEventListener("change", () => {
+  if (themeSwitch.checked) {
+    document.body.classList.add("dark-theme");
+    localStorage.setItem("theme", "dark");
+  } else {
+    document.body.classList.remove("dark-theme");
+    localStorage.setItem("theme", "light");
+  }
+  dropdownMenu.classList.add("hidden");
 });
+
+clearBtn.addEventListener("click", () => {
+  modal.classList.remove("hidden");
+  dropdownMenu.classList.add("hidden");
+});
+
+btnNo.addEventListener("click", () => modal.classList.add("hidden"));
 
 btnYes.addEventListener("click", () => {
   messages = [];
