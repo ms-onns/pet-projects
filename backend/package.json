@@ -1,0 +1,30 @@
+{
+  "name": "pet-projects",
+  "version": "1.0.0",
+  "description": "This repository is a collection of small, focused projects built during my learning journey as a Front-End Developer.  \r Each project is designed to practice specific concepts and improve real-world problem-solving skills.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ms-onns/pet-projects.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ms-onns/pet-projects/issues"
+  },
+  "homepage": "https://github.com/ms-onns/pet-projects#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
