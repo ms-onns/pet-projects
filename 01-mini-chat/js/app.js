@@ -24,19 +24,42 @@ function renderMessage() {
   messagesCont.scrollTop = messagesCont.scrollHeight;
 }
 
+// ===================
 async function botReply() {
+  const lastMessageObject = messages[messages.length - 1];
+  const userMessage = lastMessageObject.text;
+
   try {
-    const response = await fetch("https://api.adviceslip.com/advice");
+    const response = await fetch("http://localhost:3000/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: userMessage }),
+    });
+
     const data = await response.json();
-    setTimeout(() => {
-      addMessage(data.slip.advice, "bot");
+    console.log("ДАНІ ВІД БЕКЕНДУ:", data);
+
+    if (!response.ok || data.error) {
+      const errorMsg = data.error || "Невідома помилка сервера.";
+      addMessage(`Помилка: ${errorMsg}`, "bot");
       renderMessage();
-    }, 1500);
+      return;
+    }
+
+    if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+      const botText = data.candidates[0].content.parts[0].text;
+      addMessage(botText, "bot");
+    } else {
+      addMessage("Отримано некоректний формат даних від нейромережі.", "bot");
+    }
+    renderMessage();
   } catch (error) {
-    addMessage("Oops, something went wrong!", "bot");
+    console.error("Frontend error:", error);
+    addMessage("Бекенд не відповідає. Перевірте, чи запущено сервер.", "bot");
     renderMessage();
   }
 }
+// ======================
 
 function saveMessages() {
   localStorage.setItem("chatHistory", JSON.stringify(messages));
