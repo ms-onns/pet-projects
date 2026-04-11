@@ -1,3 +1,5 @@
 .vscode/
 js/config.js
 .env
+node_modules/
+backend/node_modules/
