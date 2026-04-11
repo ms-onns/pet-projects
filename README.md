@@ -1,6 +1,6 @@
 # Pet Projects (Vanilla JavaScript)
 
-This repository is a collection of small, focused projects built during my learning journey as a Front-End Developer.  
+This repository is a collection of small, focused projects built during my learning journey as a Front-End / Full-Stack Developer.  
 Each project is designed to practice specific concepts and improve real-world problem-solving skills.
 
 ---
@@ -13,11 +13,16 @@ Each project is designed to practice specific concepts and improve real-world pr
 - DOM Manipulation
 - Events & User Interaction
 
+**Backend & API:**
+
+- Node.js & Express.js
+- REST API Architecture
+- Environment Variables (`.env`) for Security
+
 **Async & Data:**
 
 - Fetch API
 - Async / Await & Try / Catch
-- REST API Integration
 - Web Storage API (`localStorage`)
 
 **Styling:**
@@ -31,53 +36,33 @@ Each project is designed to practice specific concepts and improve real-world pr
 ## 📂 Project Structure
 
 pet-projects/
-├── 01-mini-chat/
-├── (more projects coming soon)
+├── 01-mini-chat/ (Frontend)
+├── backend/ (Node.js Server)
+└── README.md
 
 ---
 
 ## 💬 Projects
 
-### 01. Mini Chat (MVP)
+### 01. Mini Chat (Full-Stack MVP)
 
-A state-based message system that integrates a live REST API for automated bot responses, featuring persistent memory and custom UI theming.
+A full-stack message system that integrates a custom Node.js backend and a live AI (Groq Llama 3) for automated bot responses, featuring persistent memory and custom UI theming.
 
 #### 🔧 Key Features:
 
+- **Backend Architecture:** Custom Node.js/Express server handling API requests securely.
+- **AI Integration:** Real-time AI responses generated via Groq API (Llama 3 model).
+- **Security:** API keys are hidden on the server side using `.env` variables.
 - **State-driven UI:** Interface rendering based on a data array (State).
-- **Network Requests:** Real bot responses fetched from the Advice Slip API using `async/await`.
 - **Persistent Storage:** Chat history and UI preferences saved and loaded using `localStorage`.
 - **UI Engineering:** Dark/Light theme toggle switch linked to CSS variables.
-- **Interactive Components:** Custom dropdown (burger) menu and confirmation modals.
-- **Auto-scroll:** Automatic camera focus on the latest messages.
 
 #### 🎯 Learning Focus:
 
-- Handling asynchronous JavaScript (`fetch`, `async/await`, error handling).
-- Web Storage API (`localStorage`, JSON serialization).
+- Building a REST API with Node.js and Express.
+- Proxying requests to hide sensitive credentials from the client.
+- Handling asynchronous JavaScript (`fetch`, `async/await`, error handling across client and server).
 - Separation of concerns (Logic vs. UI rendering).
-- Advanced DOM manipulation (toggling classes, dynamic CSS variables).
-
----
-
-## ➕ How to Add New Projects
-
-When a new project is created, follow this structure:
-
-### 02. Project Name
-
-Short description of the project.
-
-#### 🔧 Key Features:
-
-- Feature 1
-- Feature 2
-- Feature 3
-
-#### 🎯 Learning Focus:
-
-- What you learned
-- What you practiced
 
 ---
 
@@ -90,7 +75,6 @@ Each project builds on previous knowledge and introduces new concepts step-by-st
 
 ## 🧩 Future Plans
 
-- **AI Helper Chat:** Upgrade the current API to a real AI (Google Gemini API) using `POST` requests and authentication headers.
 - Introduce user authentication logic.
 - Migrate the project architecture to React.
 
@@ -98,6 +82,5 @@ Each project builds on previous knowledge and introduces new concepts step-by-st
 
 ## 📌 Notes
 
-- All projects are built **without frameworks** to strengthen core JavaScript skills.
+- All projects are built **without frameworks** (except Express for the backend) to strengthen core JavaScript skills.
 - Focus is on **logic, structure, and clean code**, not just visual design.
-- Each project is kept **simple but scalable**.
