@@ -4,7 +4,8 @@
   --bg-header: #e2e8f0;
   --text-color: #0f172a;
   --border-color: #cbd5e1;
-  --msg-bot: #94a3b8; 
+  --msg-bot-bg: #334155;     /* Глибокий темний фон для бота у світлій темі */
+  --msg-bot-text: #ffffff;   /* Чистий білий текст для бота */
   --msg-me: #22c55e;
   --hover-me: #16a34a;
   --switch-bg: #cbd5e1;
@@ -13,10 +14,11 @@
 body.dark-theme {
   --bg-body: #0f172a;
   --bg-chat: #1e293b;
-  --bg-header: #334155;
+  --bg-header: #0f172a;      /* Темніший хедер для глибини */
   --text-color: #ffffff;
-  --border-color: #0f172a;
-  --msg-bot: #6896c4;
+  --border-color: #334155;
+  --msg-bot-bg: #475569;     /* Світліший сіро-синій для бота в темній темі */
+  --msg-bot-text: #ffffff;
   --switch-bg: #475569;
 }
 
@@ -33,12 +35,14 @@ body {
 }
 
 .chat {
-  width: 400px; 
+  width: 100%; 
+  max-width: 800px; /* Чат став значно ширшим */
+  height: 85vh;     /* Чат займає 85% висоти екрану */
   background: var(--bg-chat);
-  border-radius: 10px; 
+  border-radius: 12px; 
   display: flex; 
   flex-direction: column;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Більш глибока тінь */
   overflow: visible; 
   position: relative;
   transition: background 0.4s ease, box-shadow 0.4s ease;
@@ -48,11 +52,12 @@ body {
   display: flex; 
   justify-content: space-between; 
   align-items: center;
-  padding: 15px; 
+  padding: 20px 25px; /* Більший хедер */
   background: var(--bg-header);
   border-bottom: 1px solid var(--border-color);
   font-weight: bold; 
-  border-radius: 10px 10px 0 0;
+  font-size: 1.2rem;
+  border-radius: 12px 12px 0 0;
   transition: background 0.4s ease, border-color 0.4s ease;
 }
 
@@ -67,8 +72,8 @@ body {
 
 .dropdown-menu {
   position: absolute; 
-  top: 50px; 
-  right: 10px;
+  top: 65px; 
+  right: 15px;
   background: var(--bg-chat); 
   border: 1px solid var(--border-color);
   border-radius: 8px; 
@@ -85,11 +90,11 @@ body {
   background: transparent; 
   border: none; 
   color: var(--text-color);
-  padding: 10px; 
+  padding: 12px; 
   text-align: left; 
   cursor: pointer;
-  border-radius: 4px; 
-  font-size: 0.9rem; 
+  border-radius: 6px; 
+  font-size: 0.95rem; 
   font-weight: bold;
   display: flex; 
   justify-content: space-between; 
@@ -107,8 +112,8 @@ body {
 .switch {
   position: relative; 
   display: inline-block;
-  width: 34px; 
-  height: 18px;
+  width: 36px; 
+  height: 20px;
 }
 
 .switch input { opacity: 0; width: 0; height: 0; }
@@ -124,8 +129,8 @@ body {
   &:before {
     position: absolute; 
     content: "";
-    height: 14px; 
-    width: 14px; 
+    height: 16px; 
+    width: 16px; 
     left: 2px; 
     bottom: 2px;
     background-color: white; 
@@ -145,31 +150,36 @@ input:checked + .slider:before { transform: translateX(16px); }
 }
 
 .messages { 
-  height: 300px; 
+  flex: 1; /* Розтягує блок на всю вільну висоту */
   overflow-y: auto; 
-  padding: 15px; 
+  padding: 20px 25px; 
   display: flex; 
   flex-direction: column; 
-  gap: 8px; 
+  gap: 16px; /* Більша відстань між повідомленнями */
 }
 
 .message {
-  background: var(--bg-header); 
-  padding: 10px 14px; 
-  border-radius: 8px;
-  color: var(--text-color);
+  padding: 14px 18px; /* Більше повітря всередині */
+  border-radius: 12px;
+  line-height: 1.6; /* Зручно читати довгі тексти */
+  font-size: 1rem;
   width: fit-content; 
-  max-width: 80%; 
-  align-self: flex-start;
+  max-width: 75%; /* Запобігає розтягуванню на всю ширину */
   transition: background 0.4s ease, color 0.4s ease;
 
   &.me { 
     align-self: flex-end; 
     background: var(--msg-me); 
     color: white;
+    border-bottom-right-radius: 4px; /* Хвостик повідомлення */
   }
 
-  &.bot { background: var(--msg-bot); }
+  &.bot { 
+    align-self: flex-start;
+    background: var(--msg-bot-bg); 
+    color: var(--msg-bot-text);
+    border-bottom-left-radius: 4px; /* Хвостик повідомлення */
+  }
 }
 
 .chat-form {
@@ -179,24 +189,26 @@ input:checked + .slider:before { transform: translateX(16px); }
 
   input { 
     flex: 1; 
-    padding: 14px; 
+    padding: 18px 25px; 
+    font-size: 1rem;
     border: none; 
     background: var(--bg-chat); 
     color: var(--text-color); 
     outline: none; 
     transition: background 0.4s ease, color 0.4s ease;
-    border-radius: 0 0 0 10px;
+    border-radius: 0 0 0 12px;
   }
 
   button { 
-    padding: 0 20px; 
+    padding: 0 30px; 
+    font-size: 1rem;
     background: var(--msg-me); 
     color: white; 
     border: none; 
     cursor: pointer; 
     font-weight: bold; 
     transition: background 0.2s;
-    border-radius: 0 0 10px 0;
+    border-radius: 0 0 12px 0;
 
     &:hover { background: var(--hover-me); }
   }
@@ -206,8 +218,8 @@ input:checked + .slider:before { transform: translateX(16px); }
   position: absolute; 
   top: 0; left: 0; 
   width: 100%; height: 100%; 
-  background: rgba(15, 23, 42, 0.4); 
-  backdrop-filter: blur(4px); 
+  background: rgba(15, 23, 42, 0.6); /* Темніше тло для фокусу */
+  backdrop-filter: blur(5px); 
   display: flex; 
   justify-content: center; 
   align-items: center; 
@@ -218,32 +230,42 @@ input:checked + .slider:before { transform: translateX(16px); }
 
 .modal-card { 
   background: var(--bg-chat); 
-  padding: 20px; 
-  border-radius: 10px; 
+  padding: 30px; 
+  border-radius: 12px; 
   text-align: center; 
   border: 1px solid var(--border-color); 
-  width: 80%; 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width: 90%; 
+  max-width: 400px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
   transition: background 0.4s ease;
+
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
 }
 
 .modal-actions { 
   display: flex; 
-  justify-content: space-around; 
-  margin-top: 15px; 
+  justify-content: center; 
+  gap: 15px;
   
   button { 
-    padding: 8px 20px; 
+    padding: 10px 25px; 
+    font-size: 1rem;
     border: none; 
-    border-radius: 6px; 
+    border-radius: 8px; 
     cursor: pointer; 
     font-weight: bold; 
+    transition: 0.2s ease;
   } 
   
   .btn-yes { background: #ef4444; color: white; } 
+  .btn-yes:hover { background: #dc2626; }
+  
   .btn-no { 
     background: var(--bg-header); 
     color: var(--text-color); 
-    transition: background 0.3s ease;
   } 
+  .btn-no:hover { background: var(--border-color); }
 }
