@@ -1,10 +1,22 @@
 const express = require("express");
 const cors = require("cors");
+const { Pool } = require("pg");
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+// ==========================================
+pool
+  .connect()
+  .then(() => console.log("🐘 Успішно підключено до PostgreSQL!"))
+  .catch((err) => console.error("❌ Помилка підключення до БД:", err.message));
+// ==========================================
 
 const rawKey = process.env.GROQ_API_KEY;
 const API_KEY = rawKey ? rawKey.trim() : null;
@@ -37,6 +49,12 @@ app.post("/api/chat", async (req, res) => {
   const url = "https://api.groq.com/openai/v1/chat/completions";
 
   try {
+    await pool.query("INSERT INTO messages (role, content) VALUES ($1, $2)", [
+      "user",
+      message,
+    ]);
+    console.log("📥 Повідомлення користувача записано в базу.");
+
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -61,6 +79,12 @@ app.post("/api/chat", async (req, res) => {
     if (!botReply) {
       throw new Error("Отримана некоректна структура даних від нейромережі");
     }
+
+    await pool.query("INSERT INTO messages (role, content) VALUES ($1, $2)", [
+      "assistant",
+      botReply,
+    ]);
+    console.log("📤 Відповідь асистента записана в базу.");
 
     console.log("🤖 Відповідь відправлена клієнту!");
 
